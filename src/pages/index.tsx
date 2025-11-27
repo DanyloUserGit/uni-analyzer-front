@@ -1,19 +1,68 @@
+"use client";
+import AcademicStatus from "@/components/sections/AcademicStatus";
+import BaseInfo from "@/components/sections/BaseInfo";
+import CareerProspects from "@/components/sections/CareerProspects";
+import GlobalGoals from "@/components/sections/GlobalGoals";
+import Button from "@/components/ui/Button";
+import { Grade, Profile } from "@/types";
+import { Inter } from "next/font/google";
 import Head from "next/head";
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
+import { useState } from "react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export default function Home() {
+  const [profile, setProfile] = useState<Profile>({
+    name: "",
+    surname: "",
+    citizenship: "",
+    budget: 0,
+    targetMajors: [],
+    targetCountries: [],
+    dreamUniversities: [],
+    highSchool: "",
+    gradeLevel: 0,
+    yearsOfStudy: 0,
+    gpa: [] as Grade[],
+    satScore: null,
+    ieltsScore: null,
+    isSatMock: false,
+    isIeltsMock: false,
+    academicAwards: [],
+    extracurriculars: [],
+  });
+  const clearForm = () => {
+    setProfile({
+      name: "",
+      surname: "",
+      citizenship: "",
+      budget: 0,
+      targetMajors: [],
+      targetCountries: [],
+      dreamUniversities: [],
+      highSchool: "",
+      gradeLevel: 0,
+      yearsOfStudy: 0,
+      gpa: [] as Grade[],
+      satScore: null,
+      ieltsScore: null,
+      isSatMock: false,
+      isIeltsMock: false,
+      academicAwards: [],
+      extracurriculars: [],
+    });
+  };
+  function changeValue<K extends keyof Profile>(key: K, value: Profile[K]) {
+    setProfile((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  }
+
   return (
     <>
       <Head>
@@ -22,65 +71,34 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
-      >
-        <main className={styles.main}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js logo"
-            width={100}
-            height={20}
-            priority
-          />
-          <div className={styles.intro}>
-            <h1>To get started, edit the index.tsx file.</h1>
-            <p>
-              Looking for a starting point or more instructions? Head over to{" "}
-              <a
-                href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Templates
-              </a>{" "}
-              or the{" "}
-              <a
-                href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learning
-              </a>{" "}
-              center.
-            </p>
-          </div>
-          <div className={styles.ctas}>
-            <a
-              className={styles.primary}
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+      <div className={` ${inter.className}`}>
+        <main className="container mx-auto p-4 max-w-4xl">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-3xl font-bold">impact AI</h1>
+              <p className="text-gray-500 mt-1">
+                Оцените шансы поступления с помощью ИИ от @impact.admissions
+              </p>
+            </div>
+            <button
+              className=" inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-background hover:bg-[#F2F5F8] h-10 px-4 py-2 text-red-600 hover:text-red-700 border-red-200 hover:border-red-300 border-[1px]"
+              type="button"
+              onClick={clearForm}
             >
-              <Image
-                className={styles.logo}
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={16}
-                height={16}
-              />
-              Deploy Now
-            </a>
-            <a
-              className={styles.secondary}
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Documentation
-            </a>
+              Очистить Форму
+            </button>
           </div>
+          <form className="max-w-4xl mx-auto space-y-8">
+            <BaseInfo profile={profile} changeValue={changeValue} />
+            <CareerProspects profile={profile} changeValue={changeValue} />
+            <GlobalGoals profile={profile} changeValue={changeValue} />
+            <AcademicStatus profile={profile} changeValue={changeValue} />
+            <div className="flex justify-center w-full max-w-4xl mx-auto py-8">
+              <Button type="submit" onClick={() => {}}>
+                Отправить
+              </Button>
+            </div>
+          </form>
         </main>
       </div>
     </>
