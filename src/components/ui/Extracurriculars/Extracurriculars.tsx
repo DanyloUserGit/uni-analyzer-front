@@ -21,7 +21,7 @@ export default function Extracurriculars({
 }) {
   const addHonor = () => {
     changeValue("extracurriculars", [
-      ...profile.extracurriculars,
+      ...(profile.extracurriculars || []),
       {
         id: Date.now() + Math.floor(Math.random() * 1000),
         title: "",
@@ -39,7 +39,7 @@ export default function Extracurriculars({
   ) => {
     changeValue(
       "extracurriculars",
-      profile.extracurriculars.map((honor) =>
+      (profile.extracurriculars || []).map((honor) =>
         honor.id === id ? { ...honor, [field]: value } : honor
       )
     );
@@ -48,7 +48,7 @@ export default function Extracurriculars({
   const deleteHonor = (id: number) => {
     changeValue(
       "extracurriculars",
-      profile.extracurriculars.filter((h) => h.id !== id)
+      (profile.extracurriculars || []).filter((h) => h.id !== id)
     );
   };
 
@@ -68,7 +68,7 @@ export default function Extracurriculars({
 
       {/* Cards */}
       <div className="space-y-4">
-        {profile.extracurriculars.map((honor, index) => {
+        {(profile.extracurriculars || []).map((honor, index) => {
           const gradient = gradients[index % gradients.length];
 
           return (

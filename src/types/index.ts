@@ -32,8 +32,8 @@ export interface Profile {
   ieltsScore: number | null;
   isSatMock: boolean;
   isIeltsMock: boolean;
-  academicAwards?: AcademicAward[];
-  extracurriculars?: Extracurricular[];
+  academicAwards?: AcademicAward[] | [];
+  extracurriculars?: Extracurricular[] | [];
 }
 export interface Option {
   value: string;

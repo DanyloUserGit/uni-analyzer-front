@@ -30,7 +30,7 @@ export default function AcademicRewards({
 }) {
   const addHonor = () => {
     changeValue("academicAwards", [
-      ...profile.academicAwards,
+      ...(profile.academicAwards || []),
       {
         id: Date.now() + Math.floor(Math.random() * 1000),
         title: "",
@@ -44,7 +44,7 @@ export default function AcademicRewards({
   const updateHonor = (id: number, field: keyof Honor, value: string) => {
     changeValue(
       "academicAwards",
-      profile.academicAwards.map((honor) =>
+      (profile.academicAwards || []).map((honor) =>
         honor.id === id ? { ...honor, [field]: value } : honor
       )
     );
@@ -53,7 +53,7 @@ export default function AcademicRewards({
   const deleteHonor = (id: number) => {
     changeValue(
       "academicAwards",
-      profile.academicAwards.filter((h) => h.id !== id)
+      (profile.academicAwards || []).filter((h) => h.id !== id)
     );
   };
 
@@ -72,9 +72,8 @@ export default function AcademicRewards({
         <Button onClick={addHonor}>+ Додати нагороду</Button>
       </div>
 
-
       <div className="space-y-4">
-        {profile.academicAwards.map((honor, index) => {
+        {(profile.academicAwards || []).map((honor, index) => {
           const gradient = gradients[index % gradients.length];
 
           return (
