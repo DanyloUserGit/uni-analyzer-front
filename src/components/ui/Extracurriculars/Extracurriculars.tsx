@@ -57,13 +57,13 @@ export default function Extracurriculars({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
-            Внеучебная Деятельность
+            Позакласна діяльність
           </h3>
           <p className="text-sm text-gray-500">
-            Расскажите о ваших занятиях вне учебы
+            Розкажіть про ваші заняття поза навчанням
           </p>
         </div>
-        <Button onClick={addHonor}>+ Добавить Деятельность</Button>
+        <Button onClick={addHonor}>+ Додати діяльність</Button>
       </div>
 
       {/* Cards */}

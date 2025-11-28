@@ -18,10 +18,10 @@ export default function AcademicStatus({
     <div className="rounded-lg border bg-card text-card-foreground overflow-hidden border-none shadow-md bg-gradient-to-br from-white to-gray-50">
       <div className="flex flex-col space-y-1.5 p-6 border-b bg-white">
         <div className="font-semibold tracking-tight text-xl text-gray-900">
-          Текущий Академический Статус
+          Поточний академічний статус
         </div>
         <div className="text-sm text-muted-foreground">
-          Расскажите о вашей текущей успеваемости
+          Розкажіть про вашу поточну успішність
         </div>
       </div>
       <div className="p-6 space-y-6">
@@ -30,7 +30,7 @@ export default function AcademicStatus({
           <div className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Балл SAT
+                Бал SAT
               </label>
               <div className="flex items-center gap-4">
                 <input
@@ -45,7 +45,7 @@ export default function AcademicStatus({
                 />
                 <CheckBox
                   id="satMock"
-                  label="Пробный Тест"
+                  label="Пробний тест"
                   checked={profile.isSatMock}
                   onChange={(val) => changeValue("isSatMock", val)}
                 />
@@ -53,7 +53,7 @@ export default function AcademicStatus({
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Балл IELTS
+                Бал IELTS
               </label>
               <div className="flex items-center gap-4">
                 <input
@@ -66,7 +66,7 @@ export default function AcademicStatus({
                 />
                 <CheckBox
                   id="isIeltsMock"
-                  label="Пробный Тест"
+                  label="Пробний тест"
                   checked={profile.isIeltsMock}
                   onChange={(val) => changeValue("isIeltsMock", val)}
                 />

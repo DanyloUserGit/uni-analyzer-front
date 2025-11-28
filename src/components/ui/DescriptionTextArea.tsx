@@ -16,7 +16,7 @@ type Props = {
 export default function DescriptionTextarea({
   value,
   onChange,
-  placeholder = "Опишите детали вашей деятельности, достижения, влияние",
+  placeholder = "Опишіть деталі вашої діяльності, досягнення, вплив",
   rows = 6,
   maxLength,
   className = "",

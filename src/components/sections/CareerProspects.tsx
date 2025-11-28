@@ -35,10 +35,10 @@ export default function CareerProspects({
     <div className="rounded-lg border bg-card text-card-foreground border-none shadow-md bg-gradient-to-br from-white to-gray-50">
       <div className="flex flex-col space-y-1.5 p-6 border-b bg-white">
         <div className="font-semibold tracking-tight text-xl text-gray-900">
-          Карьерные Цели
+          Кар’єрні цілі
         </div>
         <div className="text-sm text-muted-foreground">
-          Расскажите о ваших планах после университета
+          Розкажіть про ваші плани після університету
         </div>
       </div>
 
@@ -47,15 +47,15 @@ export default function CareerProspects({
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
-                Желаемые Специальности
+                Бажані спеціальності
               </h3>
               <p className="text-sm text-gray-500">
-                Выберите до 3 специальностей, которые вас интересуют
+                Оберіть до 3 спеціальностей, які вас цікавлять
               </p>
             </div>
 
             <Button disabled={majorCount >= 3} onClick={handleAddMajor}>
-              + Добавить Специальность
+              + Додати спеціальність
             </Button>
           </div>
 
@@ -76,8 +76,8 @@ export default function CareerProspects({
                   key={index}
                   value={profile.targetMajors[index] || ""}
                   onChange={(val) => handleChangeMajor(index, val)}
-                  placeholder="Выберите специальность"
-                  label={`Специальность ${index + 1}`}
+                  placeholder="Оберіть спеціальність"
+                  label={`Спеціальність ${index + 1}`}
                   options={filteredOptions}
                 />
               );

@@ -62,17 +62,17 @@ export default function AcademicRewards({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
-            Академические награды
+            Академічні нагороди
           </h3>
           <p className="text-sm text-gray-500">
-            Перечислите ваши академические достижения
+            Перелічіть ваші академічні досягнення
           </p>
         </div>
 
-        <Button onClick={addHonor}>+ Добавить награду</Button>
+        <Button onClick={addHonor}>+ Додати нагороду</Button>
       </div>
 
-      {/* Cards */}
+
       <div className="space-y-4">
         {profile.academicAwards.map((honor, index) => {
           const gradient = gradients[index % gradients.length];

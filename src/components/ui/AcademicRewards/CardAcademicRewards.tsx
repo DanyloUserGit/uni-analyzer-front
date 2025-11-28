@@ -39,17 +39,17 @@ export default function CardAcademicRewards({
   onDelete,
 }: CardAcademicRewardsProps) {
   const levelOptions: Option[] = [
-    { label: "Школьный", value: "School" },
-    { label: "Городской", value: "City" },
-    { label: "Региональный", value: "Region" },
-    { label: "Национальный", value: "National" },
-    { label: "Международный", value: "International" },
+    { label: "Шкільний", value: "School" },
+    { label: "Міський", value: "City" },
+    { label: "Регіональний", value: "Region" },
+    { label: "Національний", value: "National" },
+    { label: "Міжнародний", value: "International" },
   ];
 
   const roleOptions: Option[] = [
-    { label: "Участник", value: "Participant" },
+    { label: "Учасник", value: "Participant" },
     { label: "Бронза", value: "Bronze" },
-    { label: "Серебро", value: "Silver" },
+    { label: "Срібло", value: "Silver" },
     { label: "Золото", value: "Gold" },
   ];
 
@@ -67,14 +67,14 @@ export default function CardAcademicRewards({
 
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="Название награды"
-          placeholder="например, Золотая медаль по математике"
+          label="Назва нагороди"
+          placeholder="наприклад, Золота медаль з математики"
           value={title}
           onChange={onTitleChange}
         />
         <Input
-          label="Предметная область"
-          placeholder="например, Математика"
+          label="Предметна область"
+          placeholder="наприклад, Математика"
           value={subject}
           onChange={onSubjectChange}
         />
@@ -82,16 +82,16 @@ export default function CardAcademicRewards({
 
       <div className="grid grid-cols-2 gap-4">
         <DefaultSelect
-          label="Уровень соревнования"
-          placeholder="Выбери"
+          label="Рівень змагання"
+          placeholder="Обери"
           value={level}
           onChange={onLevelChange}
           options={levelOptions}
         />
 
         <DefaultSelect
-          label="Уровень достижения"
-          placeholder="Выбери"
+          label="Рівень досягнення"
+          placeholder="Обери"
           value={role}
           onChange={onPlaceChange}
           options={roleOptions}

@@ -40,17 +40,17 @@ export default function CardExtracurriculars({
   onDelete,
 }: CardExtracurriculars) {
   const levelOptions: Option[] = [
-    { label: "Школьный", value: "School" },
-    { label: "Городской", value: "City" },
-    { label: "Региональный", value: "Region" },
-    { label: "Национальный", value: "National" },
-    { label: "Международный", value: "International" },
+    { label: "Шкільний", value: "School" },
+    { label: "Міський", value: "City" },
+    { label: "Регіональний", value: "Region" },
+    { label: "Національний", value: "National" },
+    { label: "Міжнародний", value: "International" },
   ];
 
   const roleOptions: Option[] = [
-    { label: "Участник", value: "Participant" },
-    { label: "Один из лидеров", value: "OneOfTheLeaders" },
-    { label: "Основатель / Инициатор", value: "Founder" },
+    { label: "Учасник", value: "Participant" },
+    { label: "Один з лідерів", value: "OneOfTheLeaders" },
+    { label: "Засновник / Ініціатор", value: "Founder" },
   ];
 
   return (
@@ -67,18 +67,18 @@ export default function CardExtracurriculars({
 
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="Название Деятельности"
-          placeholder="например, Президент Школьного Совета"
+          label="Назва діяльності"
+          placeholder="наприклад, Президент Шкільної Ради"
           value={title}
           onChange={onTitleChange}
         />
         <DescriptionTextarea
           label={
             <>
-              Контекст <span className="text-gray-400 text-xs">(optional)</span>
+              Контекст <span className="text-gray-400 text-xs">(необов’язково)</span>
             </>
           }
-          placeholder="например, Математика"
+          placeholder="наприклад, Математика"
           value={context || ""}
           onChange={onSubjectChange}
           showCount={false}
@@ -87,8 +87,8 @@ export default function CardExtracurriculars({
 
       <div className="grid grid-cols-2 gap-4">
         <DefaultSelect
-          label="Уровень Деятельности"
-          placeholder="Выбери"
+          label="Рівень діяльності"
+          placeholder="Обери"
           value={level}
           onChange={onLevelChange}
           options={levelOptions}
@@ -96,7 +96,7 @@ export default function CardExtracurriculars({
 
         <DefaultSelect
           label="Роль"
-          placeholder="Выбери"
+          placeholder="Обери"
           value={role}
           onChange={onPlaceChange}
           options={roleOptions}

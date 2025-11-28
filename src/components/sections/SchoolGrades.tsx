@@ -14,13 +14,11 @@ export default function SchoolGrades({
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
   const [studyYears, setStudyYears] = useState<number | null>(null);
 
-  // 4 слоти під оцінки (незалежно від виборів)
   const gradeSlots = [0, 1, 2, 3];
 
-  // Класи для цих 4 слотів
   const last4Grades = studyYears
     ? Array.from({ length: 4 }, (_, i) => studyYears - 3 + i)
-    : [null, null, null, null]; // Показуємо пусті поля до вибору
+    : [null, null, null, null];
 
   return (
     <>
@@ -29,29 +27,29 @@ export default function SchoolGrades({
           value={profile.highSchool || ""}
           onChange={(val) => changeValue("highSchool", val)}
           label="Школа"
-          placeholder="Введите название школы"
+          placeholder="Введіть назву школи"
         />
       </div>
 
       <div className="grid grid-cols-2 gap-6">
         <DefaultSelect
-          label="Класс"
-          placeholder="Выберите класс"
+          label="Клас"
+          placeholder="Оберіть клас"
           value={selectedGrade ? String(selectedGrade) : ""}
           onChange={(val: string) => setSelectedGrade(Number(val))}
           options={[7, 8, 9, 10, 11, 12, 13].map((g) => ({
-            label: `${g} класс`,
+            label: `${g} клас`,
             value: g.toString(),
           }))}
         />
 
         <DefaultSelect
-          label="Годы обучения"
-          placeholder="Выберите"
+          label="Роки навчання"
+          placeholder="Оберіть"
           value={studyYears ? String(studyYears) : ""}
           onChange={(val: string) => setStudyYears(Number(val))}
           options={[11, 12, 13].map((y) => ({
-            label: `${y} лет`,
+            label: `${y} років`,
             value: y.toString(),
           }))}
         />
@@ -59,7 +57,7 @@ export default function SchoolGrades({
 
       <div className="space-y-4">
         <label className="text-sm font-medium text-gray-700">
-          Средний балл по классам
+          Середній бал за класами
         </label>
 
         <div className="grid grid-cols-4 gap-4">
@@ -72,7 +70,7 @@ export default function SchoolGrades({
             return (
               <GradesInput
                 key={slotIndex}
-                label={grade ? `${grade}-й класс` : ``}
+                label={grade ? `${grade}-й клас` : ``}
                 value={
                   !isDisabled && profile.gpa[slotIndex]?.score
                     ? String(profile.gpa[slotIndex].score)

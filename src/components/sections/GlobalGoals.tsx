@@ -28,10 +28,10 @@ export default function GlobalGoals({
     <div className="rounded-lg border bg-card text-card-foreground overflow-hidden border-none shadow-md bg-gradient-to-br from-white to-gray-50">
       <div className="flex flex-col space-y-1.5 p-6 border-b bg-white">
         <div className="font-semibold tracking-tight text-xl text-gray-900">
-          Глобальные Цели
+          Глобальні цілі
         </div>
         <div className="text-sm text-muted-foreground">
-          Расскажите о ваших долгосрочных планах
+          Розкажіть про ваші довгострокові плани
         </div>
       </div>
       <div className="p-6 space-y-8">
@@ -39,13 +39,13 @@ export default function GlobalGoals({
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
-                Целевые Страны
+                Цільові країни
               </h3>
               <p className="text-sm text-gray-500">
-                Выберите страны, где вы хотели бы учиться и работать
+                Оберіть країни, де ви хотіли б навчатися та працювати
               </p>
             </div>
-            <Button onClick={handleAddCountry}>+ Добавить Страну</Button>
+            <Button onClick={handleAddCountry}>+ Додати країну</Button>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[...Array(countryCount)].map((_, index) => {
@@ -64,7 +64,7 @@ export default function GlobalGoals({
                   key={index}
                   value={profile.targetCountries[index] || ""}
                   onChange={(val) => handleChangeCountry(index, val)}
-                  placeholder="Выберите страну"
+                  placeholder="Оберіть країну"
                   label={""}
                   options={filteredOptions}
                 />
@@ -75,16 +75,16 @@ export default function GlobalGoals({
         <div className="space-y-4">
           <div>
             <h3 className="text-lg font-semibold text-gray-900">
-              Желаемые Университеты
+              Бажані університети
             </h3>
             <p className="text-sm text-gray-500">
-              Укажите 5 университетов вашей мечты
+              Вкажіть 5 університетів вашої мрії
             </p>
           </div>
           <div className="space-y-3">
             <Input
               label=""
-              placeholder="Университет мечты 1"
+              placeholder="Університет мрії 1"
               value={profile?.dreamUniversities[0] || ""}
               onChange={(val) => {
                 const updatedUniversities = [...profile.dreamUniversities];
@@ -94,7 +94,7 @@ export default function GlobalGoals({
             />
             <Input
               label=""
-              placeholder="Университет мечты 2"
+              placeholder="Університет мрії 2"
               value={profile?.dreamUniversities[1] || ""}
               onChange={(val) => {
                 const updatedUniversities = [...profile.dreamUniversities];
@@ -104,7 +104,7 @@ export default function GlobalGoals({
             />
             <Input
               label=""
-              placeholder="Университет мечты 3"
+              placeholder="Університет мрії 3"
               value={profile?.dreamUniversities[2] || ""}
               onChange={(val) => {
                 const updatedUniversities = [...profile.dreamUniversities];
@@ -114,7 +114,7 @@ export default function GlobalGoals({
             />
             <Input
               label=""
-              placeholder="Университет мечты 4"
+              placeholder="Університет мрії 4"
               value={profile?.dreamUniversities[3] || ""}
               onChange={(val) => {
                 const updatedUniversities = [...profile.dreamUniversities];
@@ -124,7 +124,7 @@ export default function GlobalGoals({
             />
             <Input
               label=""
-              placeholder="Университет мечты 5"
+              placeholder="Університет мрії 5"
               value={profile?.dreamUniversities[4] || ""}
               onChange={(val) => {
                 const updatedUniversities = [...profile.dreamUniversities];

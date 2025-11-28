@@ -10,12 +10,12 @@ export default function DefaultSelect({
   required = true,
   options,
 }: {
-  value: string; // ← ТІЛЬКИ STRING
-  onChange: (val: string) => void; // ← ТІЛЬКИ STRING
+  value: string; 
+  onChange: (val: string) => void; 
   placeholder: string;
   label: string;
   required?: boolean;
-  options: Option[]; // їх value теж повинні бути string
+  options: Option[]; 
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const selected = options.find((o) => String(o.value) === value);
@@ -23,7 +23,6 @@ export default function DefaultSelect({
   const ref = useRef<HTMLDivElement>(null);
   const [dropdownStyle, setDropdownStyle] = useState<any>({});
 
-  // -------- позиціонування dropdown над усім --------
   useEffect(() => {
     if (isOpen && ref.current) {
       const rect = ref.current.getBoundingClientRect();
@@ -37,7 +36,6 @@ export default function DefaultSelect({
     }
   }, [isOpen]);
 
-  // -------- закриття при кліку поза селектом --------
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -48,12 +46,10 @@ export default function DefaultSelect({
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // ---------------------------------------------------
   return (
     <div className="space-y-2 relative" ref={ref}>
       <label className="text-sm font-medium text-gray-700">{label}</label>
 
-      {/* BUTTON */}
       <button
         type="button"
         role="combobox"
@@ -106,7 +102,6 @@ export default function DefaultSelect({
         </svg>
       </button>
 
-      {/* DROPDOWN — через портал */}
       {isOpen &&
         createPortal(
           <div
