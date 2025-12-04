@@ -1,12 +1,12 @@
 export interface AcademicAward {
-  id:number;
+  id: number;
   title: string;
   subject: string;
   level: string;
   role: string;
 }
 export interface Extracurricular {
-  id:number;
+  id: number;
   title: string;
   context?: string;
   level: string;
@@ -34,6 +34,88 @@ export interface Profile {
   isIeltsMock: boolean;
   academicAwards?: AcademicAward[] | [];
   extracurriculars?: Extracurricular[] | [];
+}
+export interface University {
+  id?: string;
+  name: string;
+  country: string;
+  city?: string;
+  tuitionUSDPerYear?: number;
+  acceptanceRatePct?: number;
+  maxFinancialAidUSD?: number | null;
+  fullGrantAvailable?: boolean;
+  deadline1?: string;
+  deadline2?: string;
+  toeflMin?: number | null;
+  ieltsMin?: number | null;
+  satMidLower?: number | null;
+  satMidUpper?: number | null;
+  essayRequired?: boolean;
+  recLettersRequired?: number | null;
+  applicationFeeUSD?: number | null;
+  platform?: string;
+  countryRank?: number | null;
+  worldRankQS?: number | null;
+  programDifficulty?: "low" | "medium" | "high";
+  typicalCOAFactor?: number;
+}
+export interface UniResults {
+  university: University;
+  fits: {
+    AcadFit: number;
+    ECFit: number;
+    IVFit: number;
+    ExamsFit: number;
+    FinFit: number;
+    CountryFit: number;
+  };
+  matchScore: number;
+  rawMatchScore: number;
+  classification: string;
+  financialAid: {
+    status: string;
+    typicalRanges: string[];
+    notes: string;
+    maxAid: number;
+  };
+  coa: number;
+}
+
+export interface ProfileSummary {
+  academic100: number;
+  ec100: number;
+  iv100: number;
+  academicRating: number;
+  extracurricularRating: number;
+  intellectualVitalityRating: number;
+  overallProfileScore: number;
+}
+export interface Scores {
+  id: string;
+  profileSummary: ProfileSummary;
+  universities: UniResults[];
+  countryMatches: Record<string, number>;
+  profile: Profile;
+}
+export interface CountryResults {
+  id: number;
+  name: string;
+  percent: number;
+  exams: number;
+  budget: number;
+  academic: number;
+  extracurricular: number;
+  iv: number;
+  profile: Profile;
+}
+
+export interface ProfileScores {
+  id: string;
+  name: string;
+  surname: string;
+  scores?: Scores;
+  countries: CountryResults[];
+  aiText: AITextInterface;
 }
 export interface Option {
   value: string;
@@ -92,31 +174,68 @@ export const majors: Option[] = [
   { value: "Industrial Design", label: "🏭 Industrial Design" },
 ];
 export const countries: Option[] = [
-  { value: "US", label: "🇺🇸 United States" },
-  { value: "GB", label: "🇬🇧 United Kingdom" },
-  { value: "CA", label: "🇨🇦 Canada" },
-  { value: "AU", label: "🇦🇺 Australia" },
-  { value: "JP", label: "🇯🇵 Japan" },
-  { value: "KR", label: "🇰🇷 South Korea" },
-  { value: "CN", label: "🇨🇳 China" },
-  { value: "SG", label: "🇸🇬 Singapore" },
-  { value: "TR", label: "🇹🇷 Turkey" },
-  { value: "DE", label: "🇩🇪 Germany" },
-  { value: "FR", label: "🇫🇷 France" },
-  { value: "IT", label: "🇮🇹 Italy" },
-  { value: "ES", label: "🇪🇸 Spain" },
-  { value: "NL", label: "🇳🇱 Netherlands" },
-  { value: "CH", label: "🇨🇭 Switzerland" },
-  { value: "SE", label: "🇸🇪 Sweden" },
-  { value: "DK", label: "🇩🇰 Denmark" },
-  { value: "NO", label: "🇳🇴 Norway" },
-  { value: "FI", label: "🇫🇮 Finland" },
-  { value: "IE", label: "🇮🇪 Ireland" },
-  { value: "AT", label: "🇦🇹 Austria" },
-  { value: "BE", label: "🇧🇪 Belgium" },
-  { value: "PT", label: "🇵🇹 Portugal" },
-  { value: "GR", label: "🇬🇷 Greece" },
-  { value: "PL", label: "🇵🇱 Poland" },
-  { value: "CZ", label: "🇨🇿 Czech Republic" },
-  { value: "HU", label: "🇭🇺 Hungary" },
+  { value: "США", label: "США" },
+  { value: "Великобританія", label: "Великобританія" },
+  { value: "Нідерланди", label: "Нідерланди" },
+  { value: "Ірландія", label: "Ірландія" },
+  { value: "Канада", label: "Канада" },
 ];
+export type Country =
+  | "США"
+  | "Великобританія"
+  | "Нідерланди"
+  | "Ірландія"
+  | "Канада";
+export const countryFlags: Record<Country, string> = {
+  США: "🇺🇸",
+  Великобританія: "🇬🇧",
+  Нідерланди: "🇳🇱",
+  Ірландія: "🇮🇪",
+  Канада: "🇨🇦",
+};
+
+export type ActionType = "Позанавчальна" | "Тести" | "Вступ" | "Дослідження";
+export interface ActionItem {
+  text: string;
+  deadline: string;
+  type: ActionType;
+}
+export interface ActionPlanItem {
+  classNum: number;
+  percent: number;
+  isCurrent?: boolean;
+  items: ActionItem[];
+}
+export const countryCapitals: Record<Country, { lat: number; lon: number }> = {
+  США: { lat: 38.9072, lon: -77.0369 }, // Washington
+  Канада: { lat: 45.4215, lon: -75.6972 }, // Ottawa
+  Великобританія: { lat: 51.5072, lon: -0.1276 }, // London
+  Нідерланди: { lat: 52.3676, lon: 4.9041 }, // Amsterdam
+  Ірландія: { lat: 53.3498, lon: -6.2603 }, // Dublin
+};
+export interface StrongWeakSummary {
+  strong: string[];
+  weak: string[];
+  summary: string;
+}
+export type PlanType = "Позанавчальна" | "Тести" | "Вступ" | "Дослідження";
+export type DeadlineType = "Весна" | "Літо" | "Осінь" | "Зима";
+export interface Plan {
+  text: string;
+  type: PlanType;
+  deadline: string;
+}
+export interface ActionPlan {
+  year: number;
+  plan: Plan[];
+  progress: number;
+  isCurrent?: boolean;
+}
+export interface AITextInterface {
+  id: number;
+  academicText: string;
+  extraCurricularText: string;
+  intellectualVitalityText: string;
+  strongWeakSummary: StrongWeakSummary;
+  actionPlan: ActionPlan[];
+}

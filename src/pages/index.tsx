@@ -5,10 +5,12 @@ import CareerProspects from "@/components/sections/CareerProspects";
 import GlobalGoals from "@/components/sections/GlobalGoals";
 import Button from "@/components/ui/Button";
 import ErrorMessage from "@/components/ui/ErrorMessage";
+import Loader from "@/components/ui/Loader";
 import { $api } from "@/http/api";
 import { Grade, Profile } from "@/types";
 import { Inter } from "next/font/google";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const inter = Inter({
@@ -71,10 +73,16 @@ export default function Home() {
     if (keys.length === 0) return null;
     return errors[keys[0]];
   };
-
+  const [loading, setLoading] = useState(false);
+  const generateResults = async (id: string) => {
+    const res = await $api.post(`/profile-scoring/${id}`);
+    return res;
+  };
+  const router = useRouter()
   const handleSubmit = async () => {
+    setLoading(true);
     const newErrors: Record<string, string> = {};
-console.log(1235)
+
     const requiredStringFields: (keyof Profile)[] = [
       "name",
       "surname",
@@ -95,9 +103,7 @@ console.log(1235)
       }
     });
 
-    const requiredNumberFields: (keyof Profile)[] = [
-      "budget",
-    ];
+    const requiredNumberFields: (keyof Profile)[] = ["budget"];
     requiredNumberFields.forEach((field) => {
       if (
         profile[field] === null ||
@@ -105,11 +111,10 @@ console.log(1235)
         profile[field] === 0
       ) {
         newErrors[field] = `Введіть ${
-          field === "budget"
-            ? "бюджет" : ""
-            // : field === "gradeLevel"
-            // ? "клас"
-            // : "кількість років навчання"
+          field === "budget" ? "бюджет" : ""
+          // : field === "gradeLevel"
+          // ? "клас"
+          // : "кількість років навчання"
         }`;
       }
     });
@@ -141,8 +146,8 @@ console.log(1235)
     });
 
     setErrors(newErrors);
-    console.log(newErrors)
-    console.log(123)
+    console.log(newErrors);
+    console.log(123);
 
     if (Object.keys(newErrors).length > 0) return;
 
@@ -150,7 +155,9 @@ console.log(1235)
       const response = await $api.post("/profiles", profile);
       if (response.status === 200 || response.status === 201) {
         console.log("Профіль успішно створено");
-        // clearForm();
+        await generateResults(response.id);
+        setLoading(false);
+        router.push(`/results?id=${response.id}`)
       }
     } catch (error: any) {
       console.error(error.message || error);
@@ -165,35 +172,42 @@ console.log(1235)
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className={` ${inter.className}`}>
-        <main className="container mx-auto p-4 max-w-4xl">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className="text-3xl font-bold">impact AI</h1>
-              <p className="text-gray-500 mt-1">
-                Оцініть шанси надходження за допомогою ШІ від @impact.admissions
-              </p>
+        {loading ? (
+          <Loader />
+        ) : (
+          <main className="container mx-auto p-4 max-w-4xl">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h1 className="text-3xl font-bold">impact AI</h1>
+                <p className="text-gray-500 mt-1">
+                  Оцініть шанси надходження за допомогою ШІ від
+                  @impact.admissions
+                </p>
+              </div>
+              <button
+                className=" inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-background hover:bg-[#F2F5F8] h-10 px-4 py-2 text-red-600 hover:text-red-700 border-red-200 hover:border-red-300 border-[1px]"
+                type="button"
+                onClick={clearForm}
+              >
+                Очистити Форму
+              </button>
             </div>
-            <button
-              className=" inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-background hover:bg-[#F2F5F8] h-10 px-4 py-2 text-red-600 hover:text-red-700 border-red-200 hover:border-red-300 border-[1px]"
-              type="button"
-              onClick={clearForm}
-            >
-              Очистити Форму
-            </button>
-          </div>
-          <div className="max-w-4xl mx-auto space-y-8"  >
-            {getFirstError() && <ErrorMessage message={getFirstError() as string} />}
-            <BaseInfo profile={profile} changeValue={changeValue} />
-            <CareerProspects profile={profile} changeValue={changeValue} />
-            <GlobalGoals profile={profile} changeValue={changeValue} />
-            <AcademicStatus profile={profile} changeValue={changeValue} />
-            <div className="flex justify-center w-full max-w-4xl mx-auto py-8">
-              <Button type="submit" onClick={handleSubmit}>
-                Надіслати
-              </Button>
+            <div className="max-w-4xl mx-auto space-y-8">
+              {getFirstError() && (
+                <ErrorMessage message={getFirstError() as string} />
+              )}
+              <BaseInfo profile={profile} changeValue={changeValue} />
+              <CareerProspects profile={profile} changeValue={changeValue} />
+              <GlobalGoals profile={profile} changeValue={changeValue} />
+              <AcademicStatus profile={profile} changeValue={changeValue} />
+              <div className="flex justify-center w-full max-w-4xl mx-auto py-8">
+                <Button type="submit" onClick={handleSubmit}>
+                  Надіслати
+                </Button>
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        )}
       </div>
     </>
   );
